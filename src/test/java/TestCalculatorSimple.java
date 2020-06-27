@@ -11,25 +11,25 @@ public class TestCalculatorSimple {
     public ExpectedException expectedException = ExpectedException.none();
 
     @BeforeClass
-    public static void createCalculator(){
+    public static void createCalculator() {
         calculator = new Calculator(); // creates calc onbjekt when before this class, so dont need to create
         //in every merthod
         System.out.println("Start");
     }
 
     @AfterClass
-    public static void afterClass(){
+    public static void afterClass() {
         System.out.println("After class");
         //Could clean, like disconnect from DB and stuff like that
     }
 
     @Before
-    public void createCalc(){
+    public void createCalc() {
         System.out.println("Before each Test.");
     }
 
     @After
-    public void afterTest(){
+    public void afterTest() {
         System.out.println("After each test.");
     }
 
@@ -70,5 +70,17 @@ public class TestCalculatorSimple {
         expectedException.expectMessage("/ by zero");
 
         int result = calculator.divide(5, 0);
+    }
+
+    @Test
+    public void testAddLarge() {
+        int result = calculator.add(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        assertEquals(-2, result);
+    }
+
+    @Test
+    public void testPower() {
+        int result = calculator.power(5,2);
+        assertEquals(25, result);
     }
 }
