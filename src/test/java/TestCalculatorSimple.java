@@ -1,21 +1,31 @@
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 import sda.calculator.Calculator;
 
 import static org.junit.Assert.*;
 
 public class TestCalculatorSimple {
-    Calculator calculator;
+    static Calculator calculator;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
+    @BeforeClass
+    public static void createCalculator(){
+        calculator = new Calculator(); // creates calc onbjekt when before this class, so dont need to create
+        //in every merthod
+        System.out.println("Start");
+    }
+
+    @AfterClass
+    public static void afterClass(){
+        System.out.println("After class");
+        //Could clean, like disconnect from DB and stuff like that
+    }
+
     @Before
     public void createCalc(){
-        calculator = new Calculator();
+        System.out.println("Before each Test.");
     }
 
     @After
@@ -32,13 +42,13 @@ public class TestCalculatorSimple {
     @Test
     public void testSubtract() {
         int result = calculator.subtract(5, 1);
-        assertEquals(3, result);
+        assertEquals(4, result);
     }
 
     @Test
     public void testMultiply() {
         int result = calculator.multiply(2, 3);
-        assertEquals(12, result);
+        assertEquals(6, result);
     }
 
     @Test
